@@ -4,18 +4,15 @@ public class TryCatchRobot {
 
     public static void moveRobot(RobotConnectionManager robotConnectionManager, int toX, int toY) {
         RobotConnection connection = null;
-        int counter = 3;
 
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < 3; i++) {
             try {
                 connection = robotConnectionManager.getConnection();
                 connection.moveRobotTo(toX, toY);
                 return;
             } catch (RobotConnectionException rce) {
                 if (i == 2) {
-                    throw new RobotConnectionException("Ups! Three connections were failed.");
-                } else {
-                    continue;
+                    throw rce;
                 }
             } finally {
                 try {
@@ -26,6 +23,5 @@ public class TryCatchRobot {
                 }
             }
         }
-
     }
 }
